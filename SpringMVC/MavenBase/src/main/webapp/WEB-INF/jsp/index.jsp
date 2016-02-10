@@ -15,6 +15,7 @@
         <title>Start Page</title>
     </head>
     <body>
-        <h1 class="my_color">Hello World!</h1>
+        <h1 class="my_color">Hello World ${name}</h1><%-- 9.2.2016 ${name} liima näkymälle. Kts DefaultController.  --%>
+        <a href="/MavenBase/second">To second page</a><%-- 9.2.2016 konteksti /second --%>
     </body>
 </html>

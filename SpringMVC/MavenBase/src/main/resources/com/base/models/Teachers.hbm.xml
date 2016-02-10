@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 10, 2016 12:49:28 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.base.models.Teachers" table="teachers" catalog="opiframe" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="_id" />
+            <generator class="identity" />
+        </id>
+        <property name="TName" type="string">
+            <column name="t_name" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" />
+        </property>
+        <property name="TSubject" type="string">
+            <column name="t_subject" />
+        </property>
+        <set name="relTables" table="rel_table" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="t_id" />
+            </key>
+            <one-to-many class="com.base.models.RelTable" />
+        </set>
+    </class>
+</hibernate-mapping>
