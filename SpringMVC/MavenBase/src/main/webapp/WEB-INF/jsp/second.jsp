@@ -20,6 +20,7 @@
             <h1>Add new teacher information</h1>
             <form:form action="/teacher" method="POST" modelAttribute="teacher"><%-- tässä JSP form, käyttää JSTL kirjastoa --%>
                 <%-- modelAttribute "teacher" menee POSTin mukana BAckEndille, käytetään routterissa DefaultController.java --%>
+                <%-- modelAttribute mäppää formin tiedon BackEndissä. Liitetään path muuttujalla Teachers-luokan atribuuttiin --%>
                 <form:label path="">Name</form:label>
                 <form:input path="TName"></form:input><br/><%-- TName tulee Teachers.java:sta --%>
                 <form:label path="">Email</form:label>

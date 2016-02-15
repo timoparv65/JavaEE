@@ -1,5 +1,5 @@
 package com.base.models;
-// Generated Feb 10, 2016 12:49:27 PM by Hibernate Tools 4.3.1
+// Generated Feb 15, 2016 12:23:55 PM by Hibernate Tools 4.3.1
 
 
 

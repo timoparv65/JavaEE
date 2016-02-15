@@ -24,19 +24,6 @@ public class DefaultController {
     // lisätty 9.2.2016
     @RequestMapping(value="/second", method=RequestMethod.GET)
     public String second(ModelMap map){
-        /*
-        //10.2.2016: seuraava testausta varten
-        Teachers s = new Teachers();
-        s.setTName("Timo Parviainen");
-        s.setTSubject("Programming");
-        s.setEmail("timo_p45@yahoo.com");
-        s.setPhone("040123456");
-        try{
-            TeacherDAO.addTeacher(s);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        */
         
         // Lisätty 12.2.2016
         // Render second.jsp
@@ -55,6 +42,7 @@ public class DefaultController {
     // lisätty 12.2.2016
     @RequestMapping(value="/teacher", method=RequestMethod.POST)
     public String addNewTeacher(@ModelAttribute("teacher") Teachers teach, ModelMap map){
+        // @ModelAttribute("teacher") Teachers teach => mallidata mäpätään Teachers luokkaan
         System.out.println(teach.getTName());
         
         try{
