@@ -21,7 +21,7 @@ public class UserDAO {
                 setParameter(0, userName).list();
         
         if(!lst.isEmpty()){
-            Hibernate.initialize(lst.get(0).getUserRoleses());
+            Hibernate.initialize(lst.get(0).getUserRoleses());//tarkistaa salasanan ja hakee käyttäjän roolit tietokannasta
         }
         session.close();
         

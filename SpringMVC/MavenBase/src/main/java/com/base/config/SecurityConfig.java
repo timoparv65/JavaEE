@@ -17,7 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @ComponentScan("com.base.service") /* muuta paketin nimi viittaamaan oikeaan paikkaan. Löydän userDetailsService:en tästä paketista */
-@EnableWebSecurity
+@EnableWebSecurity/* Nämä 3 annotaatiota oltava ennen SecurityConfig-luokan määritystä */
 /**
  *
  * @author student
@@ -39,15 +39,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             //http.headers().defaultsDisabled();
         System.out.println("CONFIGURE HTTPSEQURITY");
             http.authorizeRequests().antMatchers("/").permitAll()//kaikki voi mennä root-kontekstiin
-            .antMatchers("/second").access("hasRole('ROLE_ADMIN')")//sivulle second pääsee roolilla ROLE_ADMIN
-            .antMatchers("/teacher").access("hasRole('ADMIN') and hasRole('DBA')")
-            .and().formLogin()
-            .defaultSuccessUrl("/second")//mennään onnistuneen loggautumisen jälkeen
-            .loginPage("/login").failureUrl("/login?error")
-            .usernameParameter("username")
+            .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")//sivuille pääsee roolilla ROLE_ADMIN
+            .antMatchers("/teacher/**").access("hasRole('ROLE_TEACHER') or hasRole('ROLE_ADMIN')")//sivuille techer pääsee opettajat ja administraattori
+            .antMatchers("/student/**").access("hasRole('ROLE_STUDENT') or hasRole('ROLE_ADMIN')")//sivuille student pääsee opiskelijat ja administraattori
+            .and().formLogin()//menee login-formin kautta
+            .defaultSuccessUrl("/admin/second")//mennään onnistuneen loggautumisen jälkeen
+            .loginPage("/login").failureUrl("/login/error")//menee tähän kontekstiin epäonnistuneen loggautu,isen jälkeen
+            .usernameParameter("username")//nimet username ja password mätsää index.jsp:ssä oleviin kenttään ja lukee ne formista
             .passwordParameter("password").and()
             .logout().logoutSuccessUrl("/login?logout")
             .and().csrf()//lisätään csrf token
-            .and().exceptionHandling().accessDeniedPage("/403");
+            .and().exceptionHandling().accessDeniedPage("/403");//jos käyttäjän yrittää mennä sivuille, johon hänellä ei ole oikeuksia
     }
 }
