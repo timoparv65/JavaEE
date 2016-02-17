@@ -10,3 +10,5 @@ create table teachers(
 )Engine=InnoDb;
 
 drop table teachers;
+
+select t_name, phone from teachers;

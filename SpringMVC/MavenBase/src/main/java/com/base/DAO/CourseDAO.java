@@ -5,7 +5,7 @@
  */
 package com.base.DAO;
 
-import com.base.models.Students;
+import com.base.models.Course;
 import com.base.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -16,9 +16,9 @@ import org.hibernate.Transaction;
  *
  * @author student
  */
-public class StudentDAO {
+public class CourseDAO {
     
-    public static void addStudent(Students stud) throws Exception{
+    public static void addCourse(Course cour) throws Exception{
         
         // Create session to our database
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -29,9 +29,9 @@ public class StudentDAO {
         // tietokantaan jo kirjoitettu poistetaan
         Transaction transaction = session.beginTransaction();
         
-        //Add student to databse
-        System.out.println("Save student info to db");
-        session.save(stud);
+        //Add course to databse
+        System.out.println("Save course info to db");
+        session.save(cour);
         
         // Tekee SQL-queryn
         // insert into teacher (name,address,..) values ("markus","rautatienkatu",...)
@@ -43,19 +43,19 @@ public class StudentDAO {
         session.close();
     }
     
-    public static List<Students> getAllStudents() throws Exception{
+    public static List<Course> getAllCourses() throws Exception{
         
         Session session = HibernateUtil.getSessionFactory().openSession();
         
-        Criteria criteria = session.createCriteria(Students.class);
+        Criteria criteria = session.createCriteria(Course.class);
         
-        List<Students> lst = criteria.list();
+        List<Course> lst = criteria.list();
         session.close();
         
-        //Return list of students
+        //Return list of courses
         return lst;
-        
-        
+          
     }
+    
     
 }

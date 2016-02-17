@@ -14,11 +14,14 @@
         </div>
         <div class='collapse navbar-collapse navabar-ex-collapse'>
             <ul id='anc_list' class="nav navbar-nav navbar-right">
-                <c:if test="${isLogged == true}"><%-- $ kertoo että on muuttuja isLogged --%>
+                <c:if test="${isLogged == true}"><%-- $ kertoo että on isLogged ModelAttribute --%>
                     <li><a href="/logout">Logout</a></li>
-                </c:if>
-                <c:if test="${addStudPage == true}">
-                    <li><a href="/admin/student">Add Student</a></li>
+                    <c:if test="${studentPage == false}">
+                        <li><a href="/admin/student">Add Student</a></li>
+                    </c:if>
+                    <c:if test="${coursePage == false}">
+                        <li><a href="/admin/course">Add Course</a></li>
+                    </c:if>
                 </c:if>
             </ul>
         </div>

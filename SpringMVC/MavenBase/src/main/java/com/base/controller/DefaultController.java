@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class DefaultController {
     
+    private boolean isLogged = false; // alustetaan muuttuja isLogged false:ksi
+    
     @RequestMapping(value="/", method=RequestMethod.GET)
     public String index(ModelMap map){//Modelmap on liima kontrollerin ja näkymän välillä
         // Define attributes you want to use in your template index.jsp
@@ -37,7 +39,8 @@ public class DefaultController {
         // Lisätty 12.2.2016
         // Render second.jsp
         map.addAttribute("isLogged",true);
-        map.addAttribute("addStudPage",true);
+        map.addAttribute("studentPage",false);
+        map.addAttribute("coursePage",false);
         
         map.addAttribute("teacher",new Teachers());//luodaan instanssi Teachers-luokasta
         // "teacher" oltava yhteneväinen second.jsp määritellyssä modelAttribute="teacher" kanssa
@@ -55,9 +58,6 @@ public class DefaultController {
     @RequestMapping(value="/admin/teacher", method=RequestMethod.POST)
     public String addNewTeacher(@ModelAttribute("teacher") Teachers teach, ModelMap map){
         
-        map.addAttribute("isLogged",true);
-        map.addAttribute("addStudPage",true);
-        
         // @ModelAttribute("teacher") Teachers teach => mallidata mäpätään Teachers luokkaan
         System.out.println(teach.getTName());
         
@@ -73,7 +73,7 @@ public class DefaultController {
         }
         
         
-        return "second";
+        return "redirect:/admin/second"; //palautetaan merkkijono /admin/second kontekstiin
     }
     
     //lisätty 16.2.2016
@@ -81,6 +81,7 @@ public class DefaultController {
     public String logout(HttpServletRequest request,HttpServletResponse resp){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();//haetaan käyttäjän autentikaation tiedot...eli onko loggautunut sisälle
         if(auth != null){//jos joku loggautunut sisälle. Jos ei ole loggautunut sisälle on auth == null
+            isLogged = false; // isLogged viittaa nyt ModelAttribute("isLogged")
             new SecurityContextLogoutHandler().logout(request, resp, auth);//loggaudutaan ulos
         }
         return "redirect:/"; // palautetaan merkkijono..redirect.. kontekstiin /
@@ -97,6 +98,11 @@ public class DefaultController {
     @RequestMapping(value="/403",method=RequestMethod.GET)
     public String accessDenied(ModelMap map){
         return "<h1>You dont have permission to this page</h1>";
+    }
+    
+    @ModelAttribute("isLogged")//ModelAttributen isLogged ei tarvitse olla samanniminen kuin funktion isLogged ja muuttujan isLogged
+    public boolean isLogged() { //funktion nimi ei tarvitse olla välttämättä sama kuin muuttujan isLogged nimi
+        return isLogged;
     }
     
 }

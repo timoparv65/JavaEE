@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/student/**").access("hasRole('ROLE_STUDENT') or hasRole('ROLE_ADMIN')")//sivuille student pääsee opiskelijat ja administraattori
             .and().formLogin()//menee login-formin kautta
             .defaultSuccessUrl("/admin/second")//mennään onnistuneen loggautumisen jälkeen
-            .loginPage("/login").failureUrl("/login/error")//menee tähän kontekstiin epäonnistuneen loggautu,isen jälkeen
+            .loginPage("/login").failureUrl("/login/error")//menee tähän kontekstiin epäonnistuneen loggautumisen jälkeen
             .usernameParameter("username")//nimet username ja password mätsää index.jsp:ssä oleviin kenttään ja lukee ne formista
             .passwordParameter("password").and()
             .logout().logoutSuccessUrl("/login?logout")
