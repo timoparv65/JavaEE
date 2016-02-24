@@ -1,0 +1,12 @@
+rel_table:ssa (ei skriptissä jolla luodaan rel_table, vaan itse taulussa):
+
+select teachers.t_name,teachers.t_subject,course.c_info,course.c_name,rel_table._id
+
+from rel_table
+
+inner join teachers on teachers._id = rel_table.t_id
+
+inner join course on course._id = rel_table.c_id
+//inner join students on student._id = rel_table.s_id
+left join students on student._id = rel_table.s_id
+where rel_table._id = 2;
